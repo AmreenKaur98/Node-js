@@ -1,0 +1,408 @@
+{
+    "swagger":"2.0",
+    "info": {
+        "version": "1.0.0",
+        "description": "...SWAGGER DEDCRIPTIN..."
+    },
+    "host": "localhost:8000",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+      ],
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "paths":{
+          "/signup":{
+              "post":{
+                "tags": ["Users"],
+                  "description": "Create new user in system",
+                  "parameters": [
+                    {
+                      "name": "user",
+                      "in": "body",
+                      "description": "User that we want to create",
+                      "schema": {
+                        "$ref": "#/definitions/UserSign"
+                      }
+                    }
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "New user is created",
+                      "schema": {
+                        "$ref": "#/definitions/UserSign"
+                      }
+                    }
+                  }
+                }
+            },
+            "/login":{
+                "post":{
+                    "tags":["Users"],
+                    "description":"LOGIN PAGE",
+                    "parameters":[
+                        {
+                            "name":"user",
+                            "in":"body",
+                            "description":"LOGIN PAGE paramerters...",
+                            "schema":{
+                                "$ref":"#/definitions/UserLogin"
+                            }
+                        }   
+                    ],
+                    "produces":["application/json"],
+                    "responses":{
+                        "200":{
+                            "description":"DONE 200 LOGIN PAGE",
+                            "schema":{"$ref":"#/definitions/UserLogin"}
+                        }
+                    }
+                }
+            },
+            "/admin":{
+              "post":{
+                  "tags":["Admin login"],
+                  "description":"LOGIN PAGE",
+                  "parameters":[
+                      {
+                          "name":"admin",
+                          "in":"body",
+                          "description":"LOGIN PAGE paramerters...",
+                          "schema":{
+                              "$ref":"#/definitions/AdminLogin"
+                          }
+                      }   
+                  ],
+                  "produces":["application/json"],
+                  "responses":{
+                      "200":{
+                          "description":"DONE 200 LOGIN PAGE",
+                          "schema":{"$ref":"#/definitions/AdminLogin"}
+                      }
+                  }
+              }
+          },
+            "/adminCategory":{
+              "post":{
+                "tags":["Admin"],
+                "description":"add category ",
+                "parameters":[
+                  {
+                    "name":"authorization",
+                    "in":"header",
+                    "required":"true"
+                  },
+                  {
+                    "name":"customise",
+                    "in":"body",
+                    "description":"category options",
+                    "schema":{"$ref":"#/definitions/Category"}
+                  }
+                ],
+                "produces":["application/json"],
+                "responses":{
+                  "200":{"description":"category result page",
+                    "schema":{"$ref":"#/definitions/Category"}
+                  }
+                } 
+              }
+            },
+            "/adminproduct":{
+              "post":{
+                "tags":["Admin"],
+                "description":"product are added be admin..",
+                "produces":["multipart/form-data"],
+                "parameters":[
+                  {
+                    "name":"authorization",
+                    "in":"header",
+                    "required":"true"
+                  },
+                  {
+                    "name":"image",
+                    "in":"formData",
+                    "type": "file"
+                  },
+                  {
+                    "name":"name",
+                    "in":"formData",
+                    "type":"string"
+                   
+                  },
+                  {
+                    "name":"price",
+                    "in":"formData",
+                    "type":"number"
+                  },
+                  {
+                    "name":"quantity",
+                    "in":"formData",
+                    "type":"number"
+                  },
+                  {
+                    "name":"categoryID",
+                    "in":"formData",
+                    "type":"string"
+                  },
+                  {
+                    "name":"adminID",
+                    "in":"formData",
+                    "type":"string"
+                  }
+
+                ],
+                "consmes":["multipart/form-data"],
+                "responses":{
+                    "200":{"description":"Product Added.."
+                  }
+                }
+              }
+            },
+            "/addCart":{
+              "post":{
+                "tags":["User Cart"],
+                "description":"cart are added be user..",
+                "parameters":[
+                  {
+                    "name":"authorization",
+                    "in":"header",
+                    "required":"true"
+                  },
+                  {
+                    "name":"cart",
+                    "in":"body",
+                    "description":"new cart options",
+                    "schema":{"$ref":"#/definitions/AddCart"}
+                  }
+                ],
+                "produces":["application/json"],
+                "responses":{
+                  "200":{"description":"200",
+                    "schema":{"$ref":"#/definitions/AddCart"}
+                  },
+                  "500":{
+                    "description":"500 err"
+                  }
+                }
+              }
+            },
+            "/deleteCart":{
+              "post":{
+                "tags":["User Cart"],
+                "description":"cart to be deleted by user..",
+                "parameters":[
+                  {
+                    "name":"authorization",
+                    "in":"header",
+                    "required":"true"
+                  },
+                  {
+                    "name":"cart",
+                    "in":"body",
+                    "description":"cart options",
+                    "schema":{"$ref":"#/definitions/deleteCart"}
+                  }
+                ],
+                "produces":["application/json"],
+                "responses":{
+                  "200":{"description":"cart result",
+                    "schema":{"$ref":"#/definitions/deleteCart"}
+                  }
+                }
+              }
+            },
+            "/userView":{
+              "post":{
+                "tags":["View"],
+                "description":"view product",
+                "parameters":[
+                  {
+                    "name":"authorization",
+                    "in":"header",
+                    "required":"true"
+                  },
+                  {
+                    "name":"cart",
+                    "in":"body",
+                    "description":"view options",
+                    "schema":{"$ref":"#/definitions/view"}
+                  }
+                ],
+                "produces":["application/json"],
+                "responses":{
+                  "200":{"description":"view result "
+                  }
+                }
+              }
+            },
+            "/cartView":{
+              "post":{
+                "tags":["View"],
+                "description":"cart product",
+                "parameters":[
+                  {
+                    "name":"authorization",
+                    "in":"header",
+                    "required":"true"
+                  },
+                  {
+                    "name":"cart",
+                    "in":"body",
+                    "description":"cart options",
+                    "schema":{"$ref":"#/definitions/view"}
+                  }
+                ],
+                "produces":["application/json"],
+                "responses":{
+                  "200":{"description":"cart result "
+                  }
+                }
+              }
+            },
+            "/adminView":{
+              "post":{
+                "tags":["Admin View"],
+                "description":"category + product",
+                "parameters":[
+                  {
+                    "name":"authorization",
+                    "in":"header",
+                    "required":"true"
+                  },
+                  {
+                    "name":"cart",
+                    "in":"body",
+                    "description":"product options",
+                    "schema":{"$ref":"#/definitions/adminView"}
+                  }
+                ],
+                "produces":["application/json"],
+                "responses":{
+                  "200":{"description":"product result "
+                  }
+                }
+              }
+            }
+    },
+    "definitions":{
+        "UserSign":{
+            "required":[
+                "name","email","password","phoneNo"
+            ],
+            "properties":{
+                "name":{
+                    "type":"string"
+                },
+                "email":{
+                    "type":"string"
+                },
+                "password":{
+                    "type":"string"
+                },
+                "phoneNo":{
+                    "type":"number"
+                }
+            }
+        },
+        "UserLogin":{
+            "required":[
+                "email","password"
+            ],
+            "properties":{
+                "email":{
+                    "type":"string"
+                },
+                "password":{
+                    "type":"string"
+                }
+            }
+        },
+        "Category":{
+            "required":[
+                "name","adminID"
+            ],
+            "properties":{
+                "adminID":{
+                    "type":"string"
+                },
+                "name":{
+                    "type":"string"
+                }
+            }
+        },
+        "AddCart":{
+          "required":["userID","quantity","productID"],
+          "properties":{
+  
+            "quantity":{
+                "type":"number"
+            },
+            "userID":{
+              "type":"string"
+            },
+            "productID":{
+              "type":"string"
+            }
+          }
+        },
+        "AdminLogin":{
+          "required":["email","password"],
+          "properties":{
+            "email":{
+              "type":"string"
+            },
+            "password":{
+                "type":"string"
+            }
+          }
+        },
+        "deleteCart":{
+          "required":["userID","cartID"],
+          "properties":{
+            "cartID":{
+              "type":"string"
+            },
+            "userID":{
+              "type":"string"
+            }
+          }
+        },
+        "viewCart":{
+          "required":["cartID"],
+          "properties":{
+            "cartID":{
+              "type":"string"
+            }
+          }
+        },
+        "view":{
+          "required":["CategoryLimit","productLimit","skip"],
+          "properties":{
+            "CategoryLimit":{
+              "type":"number"
+            },
+            "productLimit":{"type":"number"},
+            "skip":{"type":"number"}
+          }
+        },
+        "adminView":{
+          "required":["CategoryLimit","CategorySkip","productID","productLimit","productSkip"],
+          "properties":{
+            "CategoryLimit":{"type":"number"},
+            "CategorySkip":{"type":"number"},
+            "productLimit":{"type":"number"},
+            "productID":{"type":"string"},
+            "productSkip":{"type":"number"}
+          }
+        }
+        
+        
+    }
+}
